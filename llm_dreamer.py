@@ -21,7 +21,7 @@ def hallucionate(prompt):
   global client
   completion = client.chat.completions.create(
     extra_body={},
-    model="arcee-ai/trinity-mini:free",
+    model="qwen/qwen3-coder-30b-a3b-instruct",
     messages=[
       {
         "role": "user",
@@ -43,13 +43,13 @@ def remove_first_last_lines(text):
     return '\n'.join(lines[1:-1])
 
 for idea in ideas:
-  idea = idea.removeprefix("*")
+  idea = idea.removeprefix("•")
   idea = idea.strip()
   if idea == "":
     continue
   print(f"Idea: {idea}")
   print("Generating code...")
-  script_code = hallucionate(f'Make me a single Python script (using only standard libraries) that would implement the following idea: "{idea}". Just a Python code in text, nothing else needed.')
+  script_code = hallucionate(f'Make me a single Python script (using only standard libraries with GUI included) that would implement the following idea: "{idea}". Just a Python code in text, nothing else needed.')
   script_code = remove_first_last_lines(script_code)
   print("Code generated.")
   print("Thinking about the script name...")
